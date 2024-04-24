@@ -6,6 +6,7 @@ class UserController {
     public async createUser(req: Request, res: Response): Promise<Response> {
         try {
             const { username, email, password, role } = req.body;
+            // logger.message(req.body);
             const newUser = new User({
                 username,
                 email,
@@ -14,8 +15,8 @@ class UserController {
             });
             await newUser.save();
             return res.status(201).json(newUser);
-        } catch (error) {
-            return res.status(500).json({ message: 'Error creating the user', error });
+        } catch (error : any) {
+            return res.status(500).json({ message : error.message });
         }
     }
 
@@ -23,8 +24,8 @@ class UserController {
         try {
             const users = await User.find();
             return res.status(200).json(users);
-        } catch (error) {
-            return res.status(500).json({ message: 'Error retrieving users', error });
+        } catch (error: any) {
+            return res.status(500).json({ message : error.message });
         }
     }
 
@@ -35,8 +36,8 @@ class UserController {
                 return res.status(404).json({ message: 'User not found' });
             }
             return res.status(200).json(user);
-        } catch (error) {
-            return res.status(500).json({ message: 'Error finding the user', error });
+        } catch (error: any) {
+            return res.status(500).json({ message : error.message });
         }
     }
 
@@ -52,8 +53,8 @@ class UserController {
                 return res.status(404).json({ message: 'User not found' });
             }
             return res.status(200).json(user);
-        } catch (error) {
-            return res.status(500).json({ message: 'Error updating the user', error });
+        } catch (error: any) {
+            return res.status(500).json({ message : error.message });
         }
     }
 
@@ -64,8 +65,8 @@ class UserController {
                 return res.status(404).json({ message: 'User not found' });
             }
             return res.status(200).json({ message: 'User deleted successfully' });
-        } catch (error) {
-            return res.status(500).json({ message: 'Error deleting the user', error });
+        } catch (error: any) {
+            return res.status(500).json({ message : error.message });
         }
     }
 }
